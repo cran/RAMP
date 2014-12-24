@@ -1,0 +1,6 @@
+useDynLib("RAMP")
+export(RAMP, predict.RAMP, print.RAMP)
+
+S3method("predict", "RAMP")
+
+S3method("print", "RAMP")

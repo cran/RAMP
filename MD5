@@ -1,0 +1,17 @@
+56a1692bbf3ba59f60df4f5ce72bc620 *DESCRIPTION
+2f7cce1ed50737b57c7ffb0483973ed6 *NAMESPACE
+1f01895caac2f542ac6e2731a418a7d8 *R/RAMP.R
+3c938366136708b05f84015bcb746f87 *R/cd.lasso.R
+785f55cd0e62d08c0454fc472a32aff1 *R/intertomain.R
+9cfa8bfa7f9dbc27d7bfe655b7e618fe *R/loglik.R
+687cb522484d3602dd13c03004fd8e0c *R/maintointer.R
+3bbec0375c8f6f7a96d79947a85c4dc3 *R/ols.refit.R
+24fe27a951d6a521b5c42de656da3f1b *R/oraclefit.R
+530ad99778bae2b09eaa817a43a10f8b *R/predict.RAMP.R
+873588f9a02702efdcb3e5dd2567b47d *R/preprocess.R
+43f12b2d0839df56ece3ae94f662b27f *R/print.RAMP.R
+71a19b2acd99f4cf2557b63871cfa915 *man/RAMP.Rd
+229c2296fb2e7670a95d426c0babcca3 *man/predict.RAMP.Rd
+316e31bf2e05ac6fa9be7049e3d8dd38 *man/print.RAMP.Rd
+02b5f700707a794590d650c4003c96fa *src/cd_lasso_bin.f
+825d9ce67726c2dbafa878f0f37c3597 *src/cd_lasso_lin.f
