@@ -1,4 +1,5 @@
-cd.lasso <- function(X, y, a0, beta, epsilon, max.iter, lambda, family, bInd, nonPen) {
+cd.general <- function(X, y, a0, beta, epsilon, max.iter, lambda, family, bInd, 
+    nonPen, pentype, gamma) {
     # dyn.load('cd_lasso1.so') nonPen p-dimensional indicator whether it impose a
     # penalty or not. nonPen=1: no penalty
     X = cbind(X, 1)
@@ -13,16 +14,16 @@ cd.lasso <- function(X, y, a0, beta, epsilon, max.iter, lambda, family, bInd, no
         family = 1
     if (family == "gaussian") 
         family = 0
-    para.in = c(epsilon, max.iter, lambda, family)
+    para.in = c(epsilon, max.iter, lambda, gamma)
     # cat('beta[1:10]', beta[1:min(length(beta),10)],'\n')
     if (family == 0) {
-        out = .Fortran("cd_lasso_lin", X = as.double(X), y = as.double(y), p = as.integer(p), 
+        out = .Fortran("cd_general_lin", X = as.double(X), y = as.double(y), p = as.integer(p), 
             n = as.integer(n), beta = as.double(beta), nonPen = as.integer(nonPenAll), 
-            paraIn = as.double(para.in))
+            pentype = as.integer(pentype), paraIn = as.double(para.in))
     } else if (family == 2) {
-        out = .Fortran("cd_lasso_bin", X = as.double(X), y = as.double(y), p = as.integer(p), 
+        out = .Fortran("cd_general_bin", X = as.double(X), y = as.double(y), p = as.integer(p), 
             n = as.integer(n), beta = as.double(beta), nonPen = as.integer(nonPenAll), 
-            paraIn = as.double(para.in))
+            pentype = as.integer(pentype), paraIn = as.double(para.in))
         
     }
     return(list(a0 = out$beta[p], beta = out$beta[-p]))
