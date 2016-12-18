@@ -8,4 +8,4 @@ maintointer <- function(mainIndex) {
     bb = as.vector(aa)
     bb = bb[!is.na(bb)]
     return(bb)
-} 
+}

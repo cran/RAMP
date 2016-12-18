@@ -18,4 +18,4 @@ preprocess <- function(trx, tex, size = ncol(trx)) {
     tex = scale(tex, attr(trx, "scaled:center"), attr(trx, "scaled:scale"))
     
     return(list(trx = trx, tex = tex))
-} 
+}

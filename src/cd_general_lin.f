@@ -5,20 +5,19 @@
 ! ptype = 1: lasso, 2: mcp, 3: scad
 
 
-      subroutine cd_general_lin(X, y, p, n, beta, nonPen, ptype, paraIn)
+      subroutine cd_general_lin(X, y, p, n, beta, pf, ptype, paraIn)
        
-      integer :: i, l, p, n, ptype  
-      integer, dimension(p) :: nonPen
+      integer :: i, l, p, n, ptype
       double precision, dimension(n,p) :: X
       double precision, dimension(n) :: y, r, Xl
-      double precision, dimension(p) :: blast, beta
+      double precision, dimension(p) :: blast, beta, pf
       double precision, dimension(4) :: paraIn
-      double precision :: lambda, v, z, thresh, gamma
+      double precision :: lam, lambda, v, z, thresh, gamma
       double precision :: tmp
      
       epsilon = paraIn(1)
       maxIter = INT(paraIn(2))
-      lambda = paraIn(3)
+      lam = paraIn(3)
       gamma = paraIn(4)
        
       r = y - MATMUL(X, beta) 
@@ -27,15 +26,14 @@
            blast = beta          
           
            DO   l = 1, p
+                  lambda = lam*pf(l)
                   Xl = X(:,l)
                   v=SUM(Xl * Xl)/n
                   z=SUM(Xl *r)/n
                   z=z + v * beta(l)
                   thresh = MAX(dble(0), ABS(z)-lambda)
                   
-                  IF(nonPen(l) /= 0) THEN
-                      beta(l)=z/v
-                  ELSE IF(ptype == 1) THEN
+                  IF(ptype == 1) THEN
                       beta(l)=SIGN(dble(1),z)*thresh/v
                   ELSE IF(ptype == 2) THEN
                   IF(ABS(z)<lambda*gamma) THEN

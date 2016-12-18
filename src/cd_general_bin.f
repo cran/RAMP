@@ -5,20 +5,19 @@
 ! ptype = 1: lasso, 2: mcp, 3: scad
 
 
-      subroutine cd_general_bin(X, y, p, n, beta, nonPen, ptype, paraIn)
+      subroutine cd_general_bin(X, y, p, n, beta, pf, ptype, paraIn)
        
       integer :: i, l, p, n, ptype  
-      integer, dimension(p) :: nonPen
       double precision, dimension(n,p) :: X
       double precision, dimension(n) :: y, r, Xl, W, eta, pi
-      double precision, dimension(p) :: blast, beta
+      double precision, dimension(p) :: blast, beta, pf
       double precision, dimension(4) :: paraIn
       double precision :: lambda, v, z, thresh, gamma
-      double precision :: tmp
+      double precision :: tmp, lam
      
       epsilon = paraIn(1)
       maxIter = INT(paraIn(2))
-      lambda = paraIn(3)
+      lam = paraIn(3)
       gamma = paraIn(4)
       eta = MATMUL(X, beta)
       pi = 1/(1+EXP(-eta)) 
@@ -30,15 +29,14 @@
            blast = beta          
           
            DO   l = 1, p
+                  lambda = lam*pf(l)
                   Xl = X(:,l)
                   W = pi*(1-pi)
                   v=SUM(Xl * W *  Xl)/n
                   z=SUM(Xl * (y-pi))/n
                   z=z + v * beta(l)
                   thresh = MAX(dble(0), ABS(z)-lambda)
-                  IF(nonPen(l) /= 0) THEN
-                      beta(l)=z/v
-                  ELSE IF(ptype == 1) THEN
+                  IF(ptype == 1) THEN
                       beta(l)=SIGN(dble(1),z)*thresh/v
                   ELSE IF(ptype == 2) THEN
                   IF(ABS(z)<lambda*gamma) THEN
@@ -62,7 +60,7 @@
                   eta = eta + (beta(l)-blast(l))*Xl
                   pi = 1/(1+EXP(-eta))
                   r = y - pi 
-                  if(SUM(ABS(r))<epsilon*p) THEN
+                  IF(SUM(ABS(r))<epsilon*p) THEN
                   ! print *, SUM(ABS(r))
                   breakInd = 1
                   EXIT

@@ -1,0 +1,11 @@
+2016-06-20 Yang Feng <yang.feng@columbia.edu> Version 1.9
+	*corrected the prediction when type=‘class’
+2016-06-08 Yang Feng <yang.feng@columbia.edu> Version 1.5
+	*corrected the implementation of standardization for main effects and for interaction effects. Note that when calculating interaction effects, they are not centered before calculating the product. Otherwise, the original interaction structure will be changed. 
+	*modified the implementation of refit to speed up the calculation
+	*add a penalty.factor option to give different penalties for different variables. Can also be used to enforce a variable in the model
+	*add a inter.penalty.factor parameter to adjust whether to encourage interaction effects or not. A larger value puts a larger penalty on the interaction effects
+2016-06-06 Yang Feng <yang.feng@columbia.edu> Version 1.4
+	*add the implementation of weak heredity
+	*add the implementation of SCAD and MCP penalty for RAMP
+	*streamline the code

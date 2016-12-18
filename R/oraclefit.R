@@ -17,4 +17,4 @@ oraclefit <- function(data, testdata, family = "gaussian") {
     if (family == "gaussian") 
         fit$Rsq = 1 - sum((ytest - yfit)^2)/sum((ytest - mean(ytest))^2) else fit$error = mean(ytest != (yfit > 0))
     return(fit = fit)
-} 
+}

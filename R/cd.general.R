@@ -1,30 +1,21 @@
-cd.general <- function(X, y, a0, beta, epsilon, max.iter, lambda, family, bInd, 
-    nonPen, pentype, gamma) {
-    # dyn.load('cd_lasso1.so') nonPen p-dimensional indicator whether it impose a
-    # penalty or not. nonPen=1: no penalty
+cd.general <- function(X, y, a0, beta, epsilon, max.iter, lambda, family, bInd, pf, 
+    pentype, gamma) {
+    # pf: penalty factor all all components, 0 means no penalty
     X = cbind(X, 1)
     p = ncol(X)
     n = nrow(X)
     beta = c(beta, a0)
-    nonPenAll = c(nonPen, rep(0, p - 1 - length(nonPen)), 1)
-    # nonPenAll[1:q] = nonPen
-    if (family == "binomial") 
-        family = 2
-    if (family == "poisson") 
-        family = 1
-    if (family == "gaussian") 
-        family = 0
+    pf = c(pf, 0)
     para.in = c(epsilon, max.iter, lambda, gamma)
     # cat('beta[1:10]', beta[1:min(length(beta),10)],'\n')
-    if (family == 0) {
+    if (family == 'gaussian') {
         out = .Fortran("cd_general_lin", X = as.double(X), y = as.double(y), p = as.integer(p), 
-            n = as.integer(n), beta = as.double(beta), nonPen = as.integer(nonPenAll), 
+            n = as.integer(n), beta = as.double(beta), pf = as.double(pf), 
             pentype = as.integer(pentype), paraIn = as.double(para.in))
-    } else if (family == 2) {
+    } else if (family == 'binomial') {
         out = .Fortran("cd_general_bin", X = as.double(X), y = as.double(y), p = as.integer(p), 
-            n = as.integer(n), beta = as.double(beta), nonPen = as.integer(nonPenAll), 
+            n = as.integer(n), beta = as.double(beta), pf = as.double(pf), 
             pentype = as.integer(pentype), paraIn = as.double(para.in))
-        
     }
     return(list(a0 = out$beta[p], beta = out$beta[-p]))
-} 
+}

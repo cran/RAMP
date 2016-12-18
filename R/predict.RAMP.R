@@ -22,12 +22,12 @@
 #' @seealso \code{\link{RAMP}},\code{\link{print.RAMP}}
 predict.RAMP <- function(object, newdata = NULL, type = c("link", "response", "class"), 
     allpath = FALSE, ...) {
-    # object: a fitted object of class inheriting from 'RAMP'.  X: optionally, a
-    # data matrix with which to predict. If omitted, the data in object will be
-    # used.  type: the type of prediction required. The default is on the scale of
-    # the linear predictors; the #alternative 'response' is on the scale of the
-    # response variable. Thus for a default binomial model the default predictions
-    # are of log-odds (probabilities on logit scale) and type = 'response' gives the
+    # object: a fitted object of class inheriting from 'RAMP'.  X: optionally, a data
+    # matrix with which to predict. If omitted, the data in object will be used.
+    # type: the type of prediction required. The default is on the scale of the
+    # linear predictors; the #alternative 'response' is on the scale of the response
+    # variable. Thus for a default binomial model the default predictions are of
+    # log-odds (probabilities on logit scale) and type = 'response' gives the
     # predicted probabilities.  type='class' gives the class lable for binomail
     # distribution.
     X = newdata
@@ -54,8 +54,7 @@ predict.RAMP <- function(object, newdata = NULL, type = c("link", "response", "c
         coef = object$beta.m.mat[mainind, i]
         if (i <= length(interind.list)) {
             interind = interind.list[[i]]
-            if (length(interind) > 0 && (!(length(interind) == 1 && interind == 
-                "None"))) {
+            if (length(interind) > 0 ) {
                 ## candidate interaction terms
                 for (indInter in 1:length(interind)) {
                   pair = as.numeric(strsplit(interind[indInter], "X")[[1]][2:3])
@@ -82,6 +81,6 @@ predict.RAMP <- function(object, newdata = NULL, type = c("link", "response", "c
     if (match.arg(type) == "link") 
         return(eta)
     if (match.arg(type) == "class") 
-        return(as.integer(eta > 0))
+        return(eta > 0)
     
-} 
+}
