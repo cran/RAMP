@@ -3,7 +3,7 @@
 #'
 #' Regularization Algorithm under Marginality Principle (RAMP) for high
 #' dimensional generalized quadratic regression.
-#' @useDynLib RAMP
+#' @useDynLib RAMP, .registration = TRUE
 #' @importFrom stats coef
 #' @importFrom stats glm
 #' @importFrom stats var
@@ -16,7 +16,7 @@
 #' for logistic regression.
 #' @param penalty Choose from \code{LASSO}, \code{SCAD} and \code{MCP}. Default
 #' is 'LASSO'.
-#' @param gamma concavity parameter. If missing, the code will use 3.7 for
+#' @param gamma concavity parameter. If NULL, the code will use 3.7 for
 #' 'SCAD' and 2.7 for 'MCP'.
 #' @param inter whether to select interaction effects. Default is TRUE.
 #' @param hier whether to enforce strong or weak heredity. Default is 'Strong'.
@@ -94,18 +94,15 @@
 #' fit4
 #' ypred4 = predict(fit4, xtest)
 #' mean((ypred4-ytest)^2)
-RAMP <- function(X, y, family = "gaussian", penalty = "LASSO", gamma = 3.7, inter = TRUE, 
+RAMP <- function(X, y, family = "gaussian", penalty = "LASSO", gamma = NULL, inter = TRUE, 
     hier = "Strong", eps = 1e-15, tune = "EBIC", penalty.factor = rep(1,ncol(X)), inter.penalty.factor = 1, lam.list, lambda.min.ratio, max.iter = 100, 
     max.num, n.lambda = 100, ebic.gamma = 1, refit = TRUE, trace = FALSE) {
     ## hier = 'Strong', or 'Weak', strong or weak heredity.
-    if (penalty == "SCAD" & missing(gamma)) {
+    if (penalty == "SCAD" & is.null(gamma)) {
         gamma = 3.7
     }
-    if (penalty == "MCP" & missing(gamma)) {
+    if (penalty == "MCP" & is.null(gamma)) {
         gamma = 2.7
-    }
-    if (penalty == "LASSO" & !missing(gamma)) {
-        stop("gamma is not needed")
     }
     pentype = switch(penalty, LASSO = 1, MCP = 2, SCAD = 3)
     
@@ -357,20 +354,16 @@ RAMP <- function(X, y, family = "gaussian", penalty = "LASSO", gamma = 3.7, inte
         
         
         beta.s = beta.n/xsd
-        a0.s = a0.n - sum(beta.n*xm)
+        a0.s = a0.n - sum(beta.s*xm)
         
         a0list[k] = a0.s
         beta.mat = cbind(beta.mat, beta.s[1:p])
-        # break criteria
-        
-        
+    
         
         
         df.m.list[k] = length(ind.list.main[[k]])
         df.i.list[k] = length(beta) - p
         
-        # if (sum(beta != 0) >= min(n - 1,100))
-        #if(k == 65) browser()
         if (df.list[k] >= n - 1) 
             break
         if (break.ind == TRUE) {
@@ -411,14 +404,14 @@ RAMP <- function(X, y, family = "gaussian", penalty = "LASSO", gamma = 3.7, inte
  
       cri.list = switch(tune, AIC = AIC.list, BIC = BIC.list, EBIC = EBIC.list,
                         GIC = GIC.list)
-     
+    region  = which(df.list[1:k] < sqrt(n))
   
-   
-    cri.loc = which.min(cri.list[1:k])
-    AIC.loc = which.min(AIC.list[1:k])
-    BIC.loc = which.min(BIC.list[1:k])
-    EBIC.loc = which.min(EBIC.list[1:k])
-    GIC.loc = which.min(GIC.list[1:k])
+   #browser()
+    cri.loc = which.min(cri.list[region])
+    AIC.loc = which.min(AIC.list[region])
+    BIC.loc = which.min(BIC.list[region])
+    EBIC.loc = which.min(EBIC.list[region])
+    GIC.loc = which.min(GIC.list[region])
     all.locs = c(AIC.loc, BIC.loc, EBIC.loc, GIC.loc)
     
     lambda = lam.list[1:ncol(beta.mat)]

@@ -23,4 +23,3 @@ from a fitted \code{'RAMP'} object.
 \seealso{
 \code{\link{RAMP}}
 }
-

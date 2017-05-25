@@ -38,4 +38,3 @@ this function returns predictions from a fitted \code{'RAMP'} object.
 \seealso{
 \code{\link{RAMP}},\code{\link{print.RAMP}}
 }
-

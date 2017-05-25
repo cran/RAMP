@@ -5,7 +5,7 @@
 \title{Regularization Algorithm under Marginality Principle (RAMP) for high
 dimensional generalized quadratic regression.}
 \usage{
-RAMP(X, y, family = "gaussian", penalty = "LASSO", gamma = 3.7,
+RAMP(X, y, family = "gaussian", penalty = "LASSO", gamma = NULL,
   inter = TRUE, hier = "Strong", eps = 1e-15, tune = "EBIC",
   penalty.factor = rep(1, ncol(X)), inter.penalty.factor = 1, lam.list,
   lambda.min.ratio, max.iter = 100, max.num, n.lambda = 100,
@@ -24,7 +24,7 @@ for logistic regression.}
 \item{penalty}{Choose from \code{LASSO}, \code{SCAD} and \code{MCP}. Default
 is 'LASSO'.}
 
-\item{gamma}{concavity parameter. If missing, the code will use 3.7 for
+\item{gamma}{concavity parameter. If NULL, the code will use 3.7 for
 'SCAD' and 2.7 for 'MCP'.}
 
 \item{inter}{whether to select interaction effects. Default is TRUE.}
@@ -124,4 +124,3 @@ mean((ypred4-ytest)^2)
 \seealso{
 \code{\link{predict.RAMP}},\code{\link{print.RAMP}}
 }
-
