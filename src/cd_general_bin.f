@@ -13,7 +13,7 @@
       double precision, dimension(p) :: blast, beta, pf
       double precision, dimension(4) :: paraIn
       double precision :: lambda, v, z, thresh, gamma
-      double precision :: tmp, lam
+      double precision :: tmp, lam, epsilon
      
       epsilon = paraIn(1)
       maxIter = INT(paraIn(2))

@@ -4,8 +4,8 @@
 \alias{predict.RAMP}
 \title{Model prediction based on a fitted RAMP object.}
 \usage{
-\method{predict}{RAMP}(object, newdata = NULL, type = c("link", "response",
-  "class"), allpath = FALSE, ...)
+\method{predict}{RAMP}(object, newdata = NULL, type = c("link",
+  "response", "class"), allpath = FALSE, ...)
 }
 \arguments{
 \item{object}{Fitted \code{'RAMP'} model object.}

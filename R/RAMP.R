@@ -104,6 +104,9 @@ RAMP <- function(X, y, family = "gaussian", penalty = "LASSO", gamma = NULL, int
     if (penalty == "MCP" & is.null(gamma)) {
         gamma = 2.7
     }
+    if(is.null(gamma)){
+        gamma = 0
+    }
     pentype = switch(penalty, LASSO = 1, MCP = 2, SCAD = 3)
     
     n = dim(X)[1]

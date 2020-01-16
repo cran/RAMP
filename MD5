@@ -1,7 +1,7 @@
 942d070fb7da13dca09b82bdf8739158 *ChangeLog
-a5c5b282a93819bbb543b224a212c294 *DESCRIPTION
+86d29013bcb450c353348bb52bbf04e8 *DESCRIPTION
 986955d9b23c46b1a4f59a719b249734 *NAMESPACE
-2c3d6ac7b56cc7930c3b84f153c71613 *R/RAMP.R
+a2726db186edb5542cd43ac9bf897867 *R/RAMP.R
 2b732fd218b4507704ac97b29e1c53ea *R/cd.general.R
 04be6b00f19a8d441837704c0ccf088e *R/intertomain.R
 6e4397fd9a17cf2a1a87f4b82692ee69 *R/loglik.R
@@ -12,8 +12,8 @@ b55e5b4b59a1078ab3321f9d21fad5bb *R/predict.RAMP.R
 addc5524877e81d99e11418f015724a4 *R/preprocess.R
 c59d1007654445e3f550bda7d4b703bc *R/print.RAMP.R
 33b2d50a26bbf0fb465eb9b2d05f7ee8 *man/RAMP.Rd
-c2bc6cdfc8a33b61063e5c6e978865f3 *man/predict.RAMP.Rd
+c242029c1bb15842e687aab2572d676a *man/predict.RAMP.Rd
 079206dd5bb2fb682107f884b63cfbb4 *man/print.RAMP.Rd
-8a46bfd9a269bbb7ca8c49d330b776c0 *src/cd_general_bin.f
-55a619c615173aff4bfddb32f0c52e50 *src/cd_general_lin.f
+9c3fd627f593cdd3efee1576c090df60 *src/cd_general_bin.f
+5a79ba5ee182d6c5bb41db4ccde16267 *src/cd_general_lin.f
 76150c1724523c5606dfa0171e2ac99b *src/registerDynamicSymbol.c
